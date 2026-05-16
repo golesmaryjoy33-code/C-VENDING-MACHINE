@@ -92,7 +92,7 @@ void loadProducts() {
 
     if(file == NULL) {
 
-        printf("stocks.txt not found. Creating default products...\n");
+        printf("inventory.txt not found. Creating default products...\n");
 
         strcpy(products[0].name, "Coke");
         products[0].price = 20;
@@ -132,7 +132,7 @@ void loadProducts() {
 
 void saveProducts() {
 
-    FILE *file = fopen("stocks.txt", "w");
+    FILE *file = fopen("inventory.txt", "w");
 
     for(int i = 0; i < PRODUCT_COUNT; i++) {
         fprintf(file, "%s %d %d\n",
