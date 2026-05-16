@@ -1,5 +1,5 @@
-Kitkat       ₱ 43    100
-Dairy Milk   ₱ 34    100
-Hershey      ₱ 63    100
-Snickers     ₱ 66    100
-Goya         ₱ 37    100
+Kitkat 43 90
+Twix 50 100
+Hershey 63 100
+Snicker 66 100
+Goya 37 100
