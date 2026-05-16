@@ -24,7 +24,7 @@ Inventory inventory[PRODUCT_COUNT];
 int money = 500;
 
 /* ---------- FUNCTION DECLARATIONS ---------- */
-
+void resetInventory();
 void loadProducts();
 void saveProducts();
 
@@ -46,42 +46,75 @@ int main() {
 
     do {
 
-        printf("\n===== VENDING MACHINE =====\n");
+
         printf("1. View Products\n");
         printf("2. Buy Product\n");
         printf("3. View Inventory\n");
-        printf("4. Exit\n");
+        printf("4. Reset Inventory\n");
+        printf("5. Exit\n");
         printf("Enter choice: ");
+
 
         scanf("%d", &choice);
 
         switch(choice) {
-
             case 1:
                 showProducts();
                 break;
-
             case 2:
                 buyProduct();
                 break;
-
             case 3:
                 showInventory();
                 break;
-
             case 4:
+                resetInventory();   // NEW
+                break;
+            case 5:
                 saveProducts();
                 saveStudentData();
                 printf("Goodbye!\n");
                 break;
-
             default:
                 printf("Invalid choice.\n");
         }
 
-    } while(choice != 4);
+    } while(choice != 5);
 
     return 0;
+}
+
+/* ---------- RESET FUNCTION ---------- */
+
+void resetInventory() {
+    char confirm;
+
+    printf("\nAre you sure you want to RESET everything? (y/n): ");
+    scanf(" %c", &confirm);
+
+    if(confirm != 'y' && confirm != 'Y') {
+        printf("Reset cancelled.\n");
+        return;
+    }
+
+    // Reset product stock (you can customize values)
+    for(int i = 0; i < PRODUCT_COUNT; i++) {
+        products[i].stock = 100;  // reset all stock to 100
+    }
+
+    // Reset student inventory
+    for(int i = 0; i < PRODUCT_COUNT; i++) {
+        inventory[i].quantity = 0;
+    }
+
+    // Reset money
+    money = 500;
+
+    // Save reset data to files
+    saveProducts();
+    saveStudentData();
+
+    printf("\n✅ System has been reset successfully!\n");
 }
 
 /* ---------- LOAD PRODUCTS ---------- */
@@ -250,7 +283,7 @@ void buyProduct() {
         totalCost += products[choice].price * quantity;
 
         printf("Added %d %s\n", quantity, products[choice].name);
-        printf("Current Total: PHP %d\n", totalCost);
+        printf("Current Total: PHP %.2f\n", totalCost);
 
         printf("Add more? (y/n): ");
         scanf(" %c", &again);
