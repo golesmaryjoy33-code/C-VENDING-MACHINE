@@ -88,7 +88,7 @@ int main() {
 
 void loadProducts() {
 
-    FILE *file = fopen("stocks.txt", "r");
+    FILE *file = fopen("inventory.txt", "r");
 
     if(file == NULL) {
 
