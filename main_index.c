@@ -148,7 +148,7 @@ void saveProducts() {
 
 void loadStudentData() {
 
-    FILE *file = fopen("student.txt", "r");
+    FILE *file = fopen("student_money.txt", "r");
 
     if(file == NULL) {
 
@@ -178,7 +178,7 @@ void loadStudentData() {
 
 void saveStudentData() {
 
-    FILE *file = fopen("student.txt", "w");
+    FILE *file = fopen("student_money.txt", "w");
 
     fprintf(file, "%d\n", money);
 
