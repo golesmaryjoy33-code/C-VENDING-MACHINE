@@ -34,6 +34,7 @@ void saveStudentData();
 void showProducts();
 void buyProduct();
 void showInventory();
+void printReceipt(int cart[], int totalCost);
 
 /* ---------- MAIN ---------- */
 
@@ -181,7 +182,7 @@ void saveProducts() {
 
 void loadStudentData() {
 
-    FILE *file = fopen("student_money.txt", "r");
+    FILE *file = fopen("studentmoney.txt", "r");
 
     if(file == NULL) {
 
@@ -211,7 +212,7 @@ void loadStudentData() {
 
 void saveStudentData() {
 
-    FILE *file = fopen("student_money.txt", "w");
+    FILE *file = fopen("studentmoney.txt", "w");
 
     fprintf(file, "%d\n", money);
 
@@ -283,7 +284,7 @@ void buyProduct() {
         totalCost += products[choice].price * quantity;
 
         printf("Added %d %s\n", quantity, products[choice].name);
-        printf("Current Total: PHP %.2f\n", totalCost);
+        printf("Current Total: PHP %d\n", totalCost);
 
         printf("Add more? (y/n): ");
         scanf(" %c", &again);
@@ -344,7 +345,7 @@ void buyProduct() {
     saveStudentData();
 
     printf("\nPurchase successful!\n");
-    printf("Remaining money: PHP %d\n", money);
+    printReceipt(cart, totalCost);
 }
 
 /* ---------- SHOW INVENTORY ---------- */
@@ -369,5 +370,23 @@ void showInventory() {
         printf("No items yet.\n");
     }
 
-    printf("Remaining Money: PHP %d\n", money);
+    printf("Current Money: PHP %d\n", money);
+}
+
+void printReceipt(int cart[], int totalCost) {
+    printf("\n=========== RECEIPT ===========\n");
+
+    for(int i = 0; i < PRODUCT_COUNT; i++) {
+        if(cart[i] > 0) {
+            printf("%-10s x %-2d = PHP %d\n",
+                products[i].name,
+                cart[i],
+                cart[i] * products[i].price);
+        }
+    }
+
+    printf("--------------------------------\n");
+    printf("TOTAL        = PHP %d\n", totalCost);
+    printf("Remaining    = PHP %d\n", money);
+    printf("================================\n");
 }
